@@ -28,21 +28,23 @@
 
             <!-- Result -->
             <div class="result" v-if="result">
-                <h2 class="result__name">Juan David Diaz</h2>
-                <img src="madrid.png" alt="" class="result__avatar">
-                <p class="result__bio">Instrumento del Sena,orientado al desarrollo web en Backend</p>
+                <h2 class="result__name">{{result.name}}</h2>
+                <img v-bind:src="result.avatar_url" alt="" class="result__avatar">
+                <p class="result__bio">{{result.bio}}</p>
                 <br>
                 <a href="https://www.realmadrid.com/" class="result__blog">Real Madrid!</a>
             </div>
+            <!-- Cuando no hay busqueda -->
+            <p v-else>Esperando la Busqueda</p>
             <!-- Error -->
-            <div class="result__error"></div>
+            <div v-if="error" class="result__error">ERROR</div>
             
         </article>
     </div>
     <script src="js/main.js"></script>
     <script>
         //creamos una constante para acoplar
-        const mountedApp = app.mount('#app')
+        const mountedApp = ella.mount('#app')
     </script>
 </body>
 
