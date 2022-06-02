@@ -14,6 +14,11 @@
     <div id="app">
         <!-- Favorites -->
         <div class="favorites">
+            <div class="favorite" v-for="alias in todosFavorito">
+                <a href="">
+                    <img v-bind:src="alias.avatar_url" alt="" class="favorite__avatar">
+                </a>
+            </div>
         </div>
 
         <!-- Content -->
@@ -28,11 +33,13 @@
 
             <!-- Result -->
             <div class="result" v-if="result">
+                <a v-if="estadoFavorito" class="result__toggle-favorite" href="" @click.prevent="removerFavorito">Eliminar favorito<img src="imagenes/eliminar.png" width="30" height="30"></a>
+                <a v-else class="result__toggle-favorite" href="" v-on:click.prevent="addFavorito">Añadir favorito<img src="imagenes/estrella.png" width="30" height="30"></a>
                 <h2 class="result__name">{{result.name}}</h2>
                 <img v-bind:src="result.avatar_url" alt="" class="result__avatar">
                 <p class="result__bio">{{result.bio}}</p>
                 <br>
-                <a href="https://www.realmadrid.com/" class="result__blog">Real Madrid!</a>
+                <a target="_blank" v-bind:href="result.html_url" class="result__blog">Perfil GitHub</a>
             </div>
             <!-- Cuando no hay busqueda -->
             <p v-else>Esperando la Busqueda</p>

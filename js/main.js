@@ -7,9 +7,35 @@ const ella = Vue.createApp({
         return {
             busqueda: null,
             result: null,
-            error: null
+            error: null,
+            favoritos: new Map()
         }
     },
+
+    created() {
+        const FavoritosGuardados = JSON.parse(window.localStorage.getItem("misFavoritos"))
+        
+        if(FavoritosGuardados.length){
+            //recreamos el map con un nuevo nombre
+            //const favoritosnew = new Map(FavoritosGuardados.Map);
+        }
+        //console.log(FavoritosGuardados)
+
+    },
+
+    computed:{
+
+        estadoFavorito(){
+            return this.favoritos.has(this.result.id)
+        },
+
+        todosFavorito(){
+            //pasamos la información a un array
+            return Array.from(this.favoritos.values())
+            //el metodo values()traera solo los valores sin las claves
+        }
+    },
+
     methods: {
 
         //la palabra funciont no es necesaria, porque se usa un metodo
@@ -30,6 +56,20 @@ const ella = Vue.createApp({
             }finally {
                 this.busqueda = null
             }
-        }   
-    },
-}) //Montamos esta informacion en el div app
+        },//aqui cierra el metodo buscar
+        
+        addFavorito(){
+            this.favoritos.set(this.result.id, this.result)
+            this.actualizarStorage()
+        },
+
+        removerFavorito(){
+            this.favoritos.delete(this.result.id)
+            this.actualizarStorage()
+        },
+
+        actualizarStorage(){
+            window.localStorage.setItem('misFavoritos', JSON.stringify(this.todosFavorito))
+        }
+    }
+})
